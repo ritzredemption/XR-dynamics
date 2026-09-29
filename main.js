@@ -23,7 +23,9 @@ const PROJECTS = [
     description: "VR driving on a physics-based vehicle model with suspension, tires, drivetrain and aerodynamics.",
     explain: "Vehicle dynamics: weight transfer, tire slip, suspension travel and drivetrain torque shape how the car accelerates, brakes and corners, and the driver feels it through the headset. Experiments were run on Meta Quest 2 and Meta Quest 3.",
     tech: ["Meta Quest 2 / 3", "Unreal Engine 5", "Chaos Physics", "C++", "OpenXR"],
-    link: "https://github.com/"
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/listings/86e8e62b-caf1-4cb6-a589-7d7cf601143f"
   },
   {
     icon: "🤖",
@@ -40,11 +42,16 @@ const PROJECTS = [
   {
     icon: "🧠",
     name: "Physical AI Simulation",
-    videos: [],
-    description: "Physics, sensors and reinforcement learning in simulation, for training and testing intelligent physical systems.",
-    explain: "Simulated sensors and physics provide the training environment where reinforcement-learning agents learn control policies before they meet real hardware.",
-    tech: ["Reinforcement Learning", "PyTorch", "Sensor Simulation", "Python"],
-    link: "https://github.com/"
+    videos: [
+      { src: D("1YfiNn-AmFuifenn84SmFhLRVKYZ91Qot"), label: "Sensor Simulation" },
+      { src: D("16Yu1kFCJESCnyLA3o7ElbS2UpScsxNbu"), label: "Robotic Reinforcement Learning" }
+    ],
+    description: "Physics, sensors and reinforcement learning in Unreal Engine, for training and testing intelligent robotic systems.",
+    explain: "Sensor simulation provides the perception layer, and physics-based robots learn control policies through reinforcement learning in the same environment, before they meet real hardware.",
+    tech: ["Unreal Engine 5", "Sensor Simulation", "Reinforcement Learning", "Robotics", "Python"],
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/listings/c172b7cc-627b-4665-a35b-3af1f253486c"
   }
 ];
 /* ===================================================================== */
@@ -57,28 +64,29 @@ function driveEmbed(input) {
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const pad = n => String(n).padStart(2, "0");
 
+const UE = `<span class="ue"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 9.5v7.2c0 3.2 2.2 5.3 5.5 5.3s5.5-2.1 5.5-5.3V9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>UNREAL ENGINE</span>`;
 const EMPTY = `<div class="video-empty"><div class="play"></div><span>VIDEO COMING SOON</span></div><div class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
 
 function render() {
   document.getElementById("projects").innerHTML = PROJECTS.map((p, i) => {
-    const list = p.videos && p.videos.length ? p.videos : [null, null];
+    const list = (p.videos && p.videos.length ? p.videos : [null, null]).map(v => (v && v.src) ? v : { src: v });
     const cells = list.map((v, k) => {
-      const src = driveEmbed(v);
+      const src = driveEmbed(v.src);
       const media = src
         ? `<iframe src="${esc(src)}" title="${esc(p.name)} demo ${k + 1}" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>`
         : EMPTY;
-      return `<figure><div class="video">${media}</div><figcaption>Demo ${pad(k + 1)}</figcaption></figure>`;
+      return `<figure><div class="video">${media}</div><figcaption>${esc(v.label || "Demo " + pad(k + 1))}</figcaption></figure>`;
     }).join("");
     return `
     <article class="project">
       <div class="project-head"><span class="idx">${pad(i + 1)} / ${pad(PROJECTS.length)}</span>
-        <h2 class="project-name"><span class="ico" aria-hidden="true">${p.icon}</span>${esc(p.name)}</h2></div>
+        <h2 class="project-name"><span class="ico" aria-hidden="true">${p.icon}</span>${esc(p.name)}</h2>${p.badge ? UE : ""}</div>
       <div class="videos">${cells}</div>
       <div class="project-info">
         <div><p class="desc">${esc(p.description)}</p><p class="explain">${esc(p.explain)}</p></div>
         <div class="side">
           <ul class="tech">${p.tech.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
-          <a class="view" href="${esc(p.link)}" target="_blank" rel="noopener">View Project
+          <a class="view" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || "View Project")}
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12L12 2M5 2h7v7"/></svg></a>
         </div>
       </div>

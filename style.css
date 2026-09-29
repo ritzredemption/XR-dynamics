@@ -112,3 +112,12 @@ footer p{margin-top:22px;font-size:13px;color:var(--muted);letter-spacing:.06em}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js .project,.js .stats div{opacity:1;transform:none}
 }
+
+.project-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.project-head .idx{flex-basis:100%;margin-bottom:0}
+.ue{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.26em;color:var(--text);border:1px solid var(--line-strong);border-radius:999px;padding:8px 16px 8px 10px}
+.ue svg{width:22px;height:22px}
+.soon{max-width:var(--max);margin:0 auto;padding:clamp(60px,9vw,130px) clamp(20px,4vw,48px);border-top:1px solid var(--line);text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
+.soon .idx{margin:0}
+.soon h2{font-size:clamp(30px,5.4vw,72px);font-weight:700;letter-spacing:-.04em;line-height:1.05}
+.soon p{color:var(--muted);font-weight:300}
