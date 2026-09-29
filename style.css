@@ -25,7 +25,7 @@ h1,h2,h3,p{margin:0}
 .site-header{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,48px);background:linear-gradient(180deg,rgba(8,9,11,.7),transparent)}
 .brand{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;letter-spacing:.22em}
 .brand-mark{width:18px;height:18px;border:1px solid var(--line-strong);border-radius:5px;background:var(--grad);opacity:.9}
-nav{display:flex;gap:32px}
+nav{display:flex;gap:32px;align-items:center}
 nav a{font-size:13px;color:var(--muted);transition:color .2s}
 nav a:hover{color:var(--text)}
 
@@ -52,7 +52,6 @@ nav a:hover{color:var(--text)}
 .project-head{margin-bottom:clamp(22px,3vw,36px)}
 .idx{display:block;font-size:12px;letter-spacing:.3em;color:var(--muted);margin-bottom:14px}
 .project-name{font-size:clamp(28px,4.4vw,60px);font-weight:700;letter-spacing:-.035em;line-height:1.05}
-.project-name .ico{display:inline-block;margin-right:.35em;font-size:.8em;vertical-align:.05em}
 
 .video{position:relative;aspect-ratio:16/9;border:1px solid var(--line-strong);border-radius:6px;overflow:hidden;background:
   radial-gradient(60% 80% at 20% 0%,rgba(58,160,255,.14),transparent 60%),
@@ -122,3 +121,16 @@ footer p{margin-top:22px;font-size:13px;color:var(--muted);letter-spacing:.06em}
 .soon .idx{margin:0}
 .soon h2{font-size:clamp(30px,5.4vw,72px);font-weight:700;letter-spacing:-.04em;line-height:1.05}
 .soon p{color:var(--muted);font-weight:300}
+
+/* LinkedIn / About me */
+nav a.about{display:inline-flex;align-items:center;gap:8px;color:var(--text);border:1px solid var(--line-strong);border-radius:999px;padding:6px 14px 6px 10px;transition:border-color .2s,color .2s}
+nav a.about svg{width:15px;height:15px;color:#0a66c2;background:#fff;border-radius:2px}
+nav a.about:hover{border-color:rgba(55,224,160,.5)}
+@media(max-width:560px){nav{gap:16px}nav a{font-size:12px}}
+
+/* single video */
+.videos.n1{grid-template-columns:1fr}
+
+/* not-hosted button */
+button.view{border:0;font-family:inherit;cursor:pointer}
+button.view.off{background:var(--bg-soft);color:var(--muted);border:1px solid var(--line-strong);transform:none;box-shadow:none}

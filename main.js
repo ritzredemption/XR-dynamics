@@ -3,21 +3,20 @@
    - videos: list of Google Drive share links (set sharing to "Anyone with the link").
              Empty list, or "PASTE_GOOGLE_DRIVE_LINK_HERE", shows VIDEO COMING SOON.
    - link:   where "View Project" goes (GitHub repo, page, etc.).
+             null shows "Project not hosted" when clicked.
    ===================================================================== */
 const D = id => `https://drive.google.com/file/d/${id}/view?usp=sharing`;
 
 const PROJECTS = [
   {
-    icon: "✈️",
     name: "VR Flight Control",
     videos: [D("1FySv33YDpeFj6nYDj_9p9xyYhpNBCROk"), D("1WKge83s7ZWFLK5QQ7wHg3SJ0yMPHQThu")],
     description: "Immersive aircraft control in VR, where the pilot's hands drive the stick and throttle of a physically simulated cockpit.",
     explain: "Flight dynamics: a six-degree-of-freedom aircraft model combines lift, drag, thrust and control-surface moments, so pitch, roll and yaw respond to real stick and throttle input. Experiments were run on Meta Quest 2 and Meta Quest 3.",
     tech: ["Meta Quest 2 / 3", "Unreal Engine 5", "OpenXR", "C++", "Flight Dynamics"],
-    link: "https://github.com/"
+    link: null
   },
   {
-    icon: "🚗",
     name: "XR Vehicle Dynamics",
     videos: [D("1DMjUeLv4TKjiF2ibiU8_kPg_hNaOXxUJ"), D("1XJLs-0gORGoiUDGmrtlSvhWMNVF8OM32")],
     description: "VR driving on a physics-based vehicle model with suspension, tires, drivetrain and aerodynamics.",
@@ -28,7 +27,6 @@ const PROJECTS = [
     link: "https://www.fab.com/listings/86e8e62b-caf1-4cb6-a589-7d7cf601143f"
   },
   {
-    icon: "🤖",
     name: "XR Robot Teleoperation",
     videos: [
       D("1auHKqmb_3pX6-CcGPUCrzURR-o_vmsER"), D("12_1O5sF2GrRqA3nxrhUArN7XnZH3z5mO"),
@@ -40,7 +38,6 @@ const PROJECTS = [
     link: "https://github.com/"
   },
   {
-    icon: "🧠",
     name: "Physical AI Simulation",
     videos: [
       { src: D("15MAT5rJu8l7O7wZy522v2h_79KndFe_P"), label: "Physics Simulation 01" },
@@ -53,6 +50,26 @@ const PROJECTS = [
     badge: true,
     linkLabel: "View on Fab",
     link: "https://www.fab.com/listings/c172b7cc-627b-4665-a35b-3af1f253486c"
+  },
+  {
+    name: "XR-Interaction",
+    videos: [D("1acHx-3bKSOsBLOZVNms6vD89pzpdrNqa")],
+    description: "Interactive architecture and interior spaces explored in VR, built for real-time walkthroughs and showrooms.",
+    explain: "Four pre-built interior environments, from an ocean-view villa to a city penthouse and Mediterranean spaces, optimized for real-time exploration on desktop and VR/XR headsets.",
+    tech: ["Meta Quest 2 / 3", "Unreal Engine 5", "OpenXR", "VR Interaction", "Architectural Visualization"],
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/listings/60d5361c-576c-4e6e-97d0-b7680edd3311"
+  },
+  {
+    name: "VR-Space Station",
+    videos: [D("176CmRi6BICqlwTMlddwWWMP3Aer3GsnD"), D("1PXn8u_nR9X-14hT4VJCV8brUeIqClg-Z")],
+    description: "A modular VR space station template for building immersive space simulations and VR games.",
+    explain: "Optimized VR controls in a sci-fi station with emissive and metallic materials, transparent glass surfaces and Niagara-animated elements, ready to customize in Unreal Engine.",
+    tech: ["Meta Quest 2 / 3", "Unreal Engine 5", "OpenXR", "Niagara", "VR Template"],
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/listings/2fe19cdf-d7ae-4ebb-a93a-5735a8c1915e"
   }
 ];
 /* ===================================================================== */
@@ -81,14 +98,16 @@ function render() {
     return `
     <article class="project">
       <div class="project-head"><span class="idx">${pad(i + 1)} / ${pad(PROJECTS.length)}</span>
-        <h2 class="project-name"><span class="ico" aria-hidden="true">${p.icon}</span>${esc(p.name)}</h2>${p.badge ? UE : ""}</div>
+        <h2 class="project-name">${esc(p.name)}</h2>${p.badge ? UE : ""}</div>
       <div class="videos n${list.length}">${cells}</div>
       <div class="project-info">
         <div><p class="desc">${esc(p.description)}</p><p class="explain">${esc(p.explain)}</p></div>
         <div class="side">
           <ul class="tech">${p.tech.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
-          <a class="view" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || "View Project")}
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12L12 2M5 2h7v7"/></svg></a>
+          ${p.link
+            ? `<a class="view" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || "View Project")}
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12L12 2M5 2h7v7"/></svg></a>`
+            : `<button type="button" class="view not-hosted" aria-live="polite">View Project</button>`}
         </div>
       </div>
     </article>`;
@@ -104,6 +123,15 @@ function reveal() {
   }), { threshold: 0.08 });
   items.forEach(i => io.observe(i));
 }
+
+document.addEventListener("click", e => {
+  const b = e.target.closest(".not-hosted");
+  if (!b) return;
+  b.textContent = "Project not hosted";
+  b.classList.add("off");
+  clearTimeout(b._t);
+  b._t = setTimeout(() => { b.textContent = "View Project"; b.classList.remove("off"); }, 2500);
+});
 
 render();
 reveal();
