@@ -82,6 +82,7 @@ nav a:hover{color:var(--text)}
 .view svg{width:14px;height:14px}
 
 .videos{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.6vw,22px)}
+.videos.n3{grid-template-columns:repeat(3,1fr)}
 figure{margin:0}
 figcaption{margin-top:10px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
 .video{transition:border-color .4s,box-shadow .4s,transform .4s}
@@ -103,7 +104,7 @@ footer p{margin-top:22px;font-size:13px;color:var(--muted);letter-spacing:.06em}
   .stats{grid-template-columns:1fr}
   .project-info{grid-template-columns:1fr}
   .hero-img{object-position:75% center}
-  .videos{grid-template-columns:1fr}
+  .videos,.videos.n3{grid-template-columns:1fr}
   .hero-shade{background:linear-gradient(0deg,var(--bg) 4%,rgba(8,9,11,.6) 45%,rgba(8,9,11,.15) 80%)}
   .scroll-cue{display:none}
 }

@@ -43,8 +43,9 @@ const PROJECTS = [
     icon: "🧠",
     name: "Physical AI Simulation",
     videos: [
-      { src: D("1YfiNn-AmFuifenn84SmFhLRVKYZ91Qot"), label: "Sensor Simulation" },
-      { src: D("16Yu1kFCJESCnyLA3o7ElbS2UpScsxNbu"), label: "Robotic Reinforcement Learning" }
+      { src: D("15MAT5rJu8l7O7wZy522v2h_79KndFe_P"), label: "Physics Simulation 01" },
+      { src: D("16Yu1kFCJESCnyLA3o7ElbS2UpScsxNbu"), label: "Physics Simulation 02" },
+      { src: D("1YfiNn-AmFuifenn84SmFhLRVKYZ91Qot"), label: "Physics Simulation 03" }
     ],
     description: "Physics, sensors and reinforcement learning in Unreal Engine, for training and testing intelligent robotic systems.",
     explain: "Sensor simulation provides the perception layer, and physics-based robots learn control policies through reinforcement learning in the same environment, before they meet real hardware.",
@@ -81,7 +82,7 @@ function render() {
     <article class="project">
       <div class="project-head"><span class="idx">${pad(i + 1)} / ${pad(PROJECTS.length)}</span>
         <h2 class="project-name"><span class="ico" aria-hidden="true">${p.icon}</span>${esc(p.name)}</h2>${p.badge ? UE : ""}</div>
-      <div class="videos">${cells}</div>
+      <div class="videos n${list.length}">${cells}</div>
       <div class="project-info">
         <div><p class="desc">${esc(p.description)}</p><p class="explain">${esc(p.explain)}</p></div>
         <div class="side">
