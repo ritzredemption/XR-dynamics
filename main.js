@@ -4,10 +4,27 @@
              Empty list, or "PASTE_GOOGLE_DRIVE_LINK_HERE", shows VIDEO COMING SOON.
    - link:   where "View Project" goes (GitHub repo, page, etc.).
              null shows "Project not hosted" when clicked.
+   - notHosted: true adds a "View Project" button that says "Project not hosted"
+             next to the link button.
+   - videos entries can also be { image } (a still) or { slides: [...] } (slideshow).
    ===================================================================== */
 const D = id => `https://drive.google.com/file/d/${id}/view?usp=sharing`;
 
 const PROJECTS = [
+  {
+    name: "Flight Dynamics",
+    videos: [
+      { image: "assets/flight-dynamics/cover.jpg", label: "Overview", alt: "Flight Dynamics plugin cover: a fighter jet taking off with afterburner on a dark runway" },
+      { slides: Array.from({ length: 15 }, (_, n) => `assets/flight-dynamics/slide-${String(n + 1).padStart(2, "0")}.jpg`), label: "Gallery" }
+    ],
+    description: "A physics-based flight dynamics plugin for Unreal Engine 5.5 to 5.8, with real lift, drag and thrust simulated in the Chaos physics engine.",
+    explain: "Realistic physics across the entire speed and altitude range, from runway take-off to landing. Advanced fly-by-wire keeps the aircraft inside its flight envelope while control surfaces follow the flight computer. Includes retractable landing gear, a feature-rich HUD (airspeed, Mach, G, angle of attack, altitude, vertical speed, thrust), three camera modes and an afterburner plume.",
+    tech: ["Unreal Engine 5.5 - 5.8", "Chaos Physics", "Fly-by-Wire", "C++", "Flight Dynamics"],
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/sellers/Ritzredemption",
+    notHosted: true
+  },
   {
     name: "VR Flight Control",
     videos: [D("1FySv33YDpeFj6nYDj_9p9xyYhpNBCROk"), D("1WKge83s7ZWFLK5QQ7wHg3SJ0yMPHQThu")],
@@ -87,8 +104,18 @@ const EMPTY = `<div class="video-empty"><div class="play"></div><span>VIDEO COMI
 
 function render() {
   document.getElementById("projects").innerHTML = PROJECTS.map((p, i) => {
-    const list = (p.videos && p.videos.length ? p.videos : [null, null]).map(v => (v && v.src) ? v : { src: v });
+    const list = (p.videos && p.videos.length ? p.videos : [null, null]).map(v => (v && typeof v === "object") ? v : { src: v });
     const cells = list.map((v, k) => {
+      if (v.image) {
+        return `<figure><div class="video"><img class="cover-img" src="${esc(v.image)}" alt="${esc(v.alt || p.name)}" loading="lazy"></div><figcaption>${esc(v.label || "Image")}</figcaption></figure>`;
+      }
+      if (v.slides) {
+        const imgs = v.slides.map((u, n) => `<img src="${esc(u)}" alt="${esc(p.name)} screenshot ${n + 1} of ${v.slides.length}" ${n ? 'loading="lazy"' : ""}>`).join("");
+        return `<figure><div class="video slideshow" role="region" aria-roledescription="carousel" aria-label="${esc(p.name)} screenshots">${imgs}
+          <button type="button" class="ss-btn prev" aria-label="Previous image">&#8249;</button>
+          <button type="button" class="ss-btn next" aria-label="Next image">&#8250;</button>
+          <span class="ss-count" aria-live="off"></span></div><figcaption>${esc(v.label || "Gallery")}</figcaption></figure>`;
+      }
       const src = driveEmbed(v.src);
       const media = src
         ? `<iframe src="${esc(src)}" title="${esc(p.name)} demo ${k + 1}" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>`
@@ -108,6 +135,7 @@ function render() {
             ? `<a class="view" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || "View Project")}
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12L12 2M5 2h7v7"/></svg></a>`
             : `<button type="button" class="view not-hosted" aria-live="polite">View Project</button>`}
+          ${p.link && p.notHosted ? `<button type="button" class="view not-hosted ghost" aria-live="polite">View Project</button>` : ""}
         </div>
       </div>
     </article>`;
@@ -133,5 +161,32 @@ document.addEventListener("click", e => {
   b._t = setTimeout(() => { b.textContent = "View Project"; b.classList.remove("off"); }, 2500);
 });
 
+function slideshows() {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".slideshow").forEach(el => {
+    const slides = [...el.querySelectorAll("img")];
+    const count = el.querySelector(".ss-count");
+    let i = 0, timer = null;
+    const show = n => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle("on", k === i));
+      count.textContent = `${pad(i + 1)} / ${pad(slides.length)}`;
+    };
+    const stop = () => { clearInterval(timer); timer = null; };
+    const play = () => { if (!reduce && !timer) timer = setInterval(() => show(i + 1), 3500); };
+    el.querySelector(".prev").addEventListener("click", () => { show(i - 1); stop(); play(); });
+    el.querySelector(".next").addEventListener("click", () => { show(i + 1); stop(); play(); });
+    el.addEventListener("mouseenter", stop);
+    el.addEventListener("mouseleave", play);
+    el.addEventListener("focusin", stop);
+    el.addEventListener("focusout", play);
+    show(0);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? play() : stop()), { threshold: 0.3 }).observe(el);
+    } else play();
+  });
+}
+
 render();
+slideshows();
 reveal();
