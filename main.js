@@ -14,8 +14,8 @@ const PROJECTS = [
   {
     name: "Flight Dynamics",
     videos: [
-      { image: "assets/flight-dynamics/cover.jpg", label: "Overview", alt: "Flight Dynamics plugin cover: a fighter jet taking off with afterburner on a dark runway" },
-      { slides: Array.from({ length: 15 }, (_, n) => `assets/flight-dynamics/slide-${String(n + 1).padStart(2, "0")}.jpg`), label: "Gallery" }
+      { image: "cover.jpg", label: "Overview", alt: "Flight Dynamics plugin cover: a fighter jet taking off with afterburner on a dark runway" },
+      { slides: Array.from({ length: 15 }, (_, n) => `assets/slide-${String(n + 1).padStart(2, "0")}.jpg`), label: "Gallery" }
     ],
     description: "A physics-based flight dynamics plugin for Unreal Engine 5.5 to 5.8, with real lift, drag and thrust simulated in the Chaos physics engine.",
     explain: "Realistic physics across the entire speed and altitude range, from runway take-off to landing. Advanced fly-by-wire keeps the aircraft inside its flight envelope while control surfaces follow the flight computer. Includes retractable landing gear, a feature-rich HUD (airspeed, Mach, G, angle of attack, altitude, vertical speed, thrust), three camera modes and an afterburner plume.",
