@@ -12,6 +12,19 @@ const D = id => `https://drive.google.com/file/d/${id}/view?usp=sharing`;
 
 const PROJECTS = [
   {
+    id: "teleoperation",
+    name: "XR Robot Teleoperation",
+    videos: [
+      D("1auHKqmb_3pX6-CcGPUCrzURR-o_vmsER"), D("12_1O5sF2GrRqA3nxrhUArN7XnZH3z5mO"),
+      D("1vmRYNudguLOO_R8Z1Q4nknEGmol8VhfK"), D("1XhelwKwoSRyTek3e2uUjMV487Ms9RCpv")
+    ],
+    description: "XR-controlled robotics: an operator drives a real humanoid robot through a headset for warehouse operation.",
+    explain: "Teleoperation dynamics of real humanoid robots: head and hand motion from Meta Quest 2 and Meta Quest 3 is mapped to the robot's body and arms, so one operator can handle warehouse tasks such as picking, carrying and placing. Experiments cover control response, latency and stability on the real machine.",
+    tech: ["Meta Quest 2 / 3", "Humanoid Robots", "Warehouse Automation", "ROS 2", "Python"],
+    link: null
+  },
+  {
+    id: "flight-dynamics",
     name: "Flight Dynamics",
     videos: [
       { image: "cover.jpg", label: "Overview", alt: "Flight Dynamics plugin cover: a fighter jet taking off with afterburner on a dark runway" },
@@ -22,10 +35,10 @@ const PROJECTS = [
     tech: ["Unreal Engine 5.5 - 5.8", "Chaos Physics", "Fly-by-Wire", "C++", "Flight Dynamics"],
     badge: true,
     linkLabel: "View on Fab",
-    link: "https://www.fab.com/sellers/Ritzredemption",
-    notHosted: true
+    link: "https://www.fab.com/listings/ab848d4b-a42d-4d9b-9f28-c72ceada449b"
   },
   {
+    id: "vr-flight-control",
     name: "VR Flight Control",
     videos: [D("1FySv33YDpeFj6nYDj_9p9xyYhpNBCROk"), D("1WKge83s7ZWFLK5QQ7wHg3SJ0yMPHQThu")],
     description: "Immersive aircraft control in VR, where the pilot's hands drive the stick and throttle of a physically simulated cockpit.",
@@ -34,6 +47,7 @@ const PROJECTS = [
     link: null
   },
   {
+    id: "vehicle-dynamics",
     name: "XR Vehicle Dynamics",
     videos: [D("1DMjUeLv4TKjiF2ibiU8_kPg_hNaOXxUJ"), D("1XJLs-0gORGoiUDGmrtlSvhWMNVF8OM32")],
     description: "VR driving on a physics-based vehicle model with suspension, tires, drivetrain and aerodynamics.",
@@ -44,17 +58,7 @@ const PROJECTS = [
     link: "https://www.fab.com/listings/86e8e62b-caf1-4cb6-a589-7d7cf601143f"
   },
   {
-    name: "XR Robot Teleoperation",
-    videos: [
-      D("1auHKqmb_3pX6-CcGPUCrzURR-o_vmsER"), D("12_1O5sF2GrRqA3nxrhUArN7XnZH3z5mO"),
-      D("1vmRYNudguLOO_R8Z1Q4nknEGmol8VhfK"), D("1XhelwKwoSRyTek3e2uUjMV487Ms9RCpv")
-    ],
-    description: "XR-controlled robotics: an operator drives a real humanoid robot through a headset for warehouse operation.",
-    explain: "Teleoperation dynamics of real humanoid robots: head and hand motion from Meta Quest 2 and Meta Quest 3 is mapped to the robot's body and arms, so one operator can handle warehouse tasks such as picking, carrying and placing. Experiments cover control response, latency and stability on the real machine.",
-    tech: ["Meta Quest 2 / 3", "Humanoid Robots", "Warehouse Automation", "ROS 2", "Python"],
-    link: "https://github.com/"
-  },
-  {
+    id: "physical-ai",
     name: "Physical AI Simulation",
     videos: [
       { src: D("15MAT5rJu8l7O7wZy522v2h_79KndFe_P"), label: "Physics Simulation 01" },
@@ -69,6 +73,7 @@ const PROJECTS = [
     link: "https://www.fab.com/listings/c172b7cc-627b-4665-a35b-3af1f253486c"
   },
   {
+    id: "xr-interaction",
     name: "XR-Interaction",
     videos: [D("1acHx-3bKSOsBLOZVNms6vD89pzpdrNqa")],
     description: "Interactive architecture and interior spaces explored in VR, built for real-time walkthroughs and showrooms.",
@@ -79,6 +84,7 @@ const PROJECTS = [
     link: "https://www.fab.com/listings/60d5361c-576c-4e6e-97d0-b7680edd3311"
   },
   {
+    id: "space-station",
     name: "VR-Space Station",
     videos: [D("176CmRi6BICqlwTMlddwWWMP3Aer3GsnD"), D("1PXn8u_nR9X-14hT4VJCV8brUeIqClg-Z")],
     description: "A modular VR space station template for building immersive space simulations and VR games.",
@@ -87,8 +93,40 @@ const PROJECTS = [
     badge: true,
     linkLabel: "View on Fab",
     link: "https://www.fab.com/listings/2fe19cdf-d7ae-4ebb-a93a-5735a8c1915e"
+  },
+  {
+    id: "xr-keypad",
+    name: "XR-Keypad",
+    videos: [{ image: "assets/tabs/xr-keypad.jpg", label: "Ready-to-run demo map", alt: "XR-Keypad demo map: a secure access terminal with two floating keypads" }],
+    description: "A hand-tracked XR keypad plugin for Unreal Engine 5.8, delivered with a ready-to-run demo map.",
+    explain: "Poke or pinch the keys with your hands, point with a ray, or use controllers and mouse, then grab the handle to move the keypad. The demo is a secure access terminal where you enter a code and a name, and switch layouts, themes and colors live.",
+    tech: ["Unreal Engine 5.8", "Hand Tracking", "Controllers", "Blueprint + C++", "XR Input"],
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/listings/28274d1c-dfe2-44cf-a471-12638ffcfc6f"
+  },
+  {
+    id: "vr-drone-cockpit",
+    name: "VR-Drone Cockpit",
+    videos: [{ image: "assets/tabs/vr-drone-cockpit.jpg", label: "Overview", alt: "VR-Drone Cockpit: a gloved hand touching the glass flight display of a VTOL drone cockpit" }],
+    description: "A VR cockpit for VTOL drones in Unreal Engine 5.8, flown with your hands on a touch flight display.",
+    explain: "A glass cockpit with an attitude indicator and live telemetry: altitude, ground speed, vertical speed, pitch, roll, thrust-to-weight and load, plus per-rotor output for H1 to H4.",
+    tech: ["Unreal Engine 5.8", "VR Cockpit", "VTOL", "Telemetry HUD", "Hand Interaction"],
+    badge: true,
+    linkLabel: "View on Fab",
+    link: "https://www.fab.com/listings/fff21d70-c83f-4411-ad23-cbed73a1895c"
   }
 ];
+
+/* Hero rolling tabs: image + the project id it scrolls to */
+const TABS = [
+  { title: "Flight Dynamics",       img: "assets/tabs/flight-dynamics.jpg",  target: "flight-dynamics" },
+  { title: "Vehicle Dynamics",      img: "assets/tabs/vehicle-dynamics.jpg", target: "vehicle-dynamics" },
+  { title: "Vehicle Sim & AD Toolkit", img: "assets/tabs/vehicle-toolkit.jpg", target: "physical-ai" },
+  { title: "XR-Keypad",             img: "assets/tabs/xr-keypad.jpg",        target: "xr-keypad" },
+  { title: "VR-Drone Cockpit",      img: "assets/tabs/vr-drone-cockpit.jpg", target: "vr-drone-cockpit" }
+];
+
 /* ===================================================================== */
 
 function driveEmbed(input) {
@@ -123,7 +161,7 @@ function render() {
       return `<figure><div class="video">${media}</div><figcaption>${esc(v.label || "Demo " + pad(k + 1))}</figcaption></figure>`;
     }).join("");
     return `
-    <article class="project">
+    <article class="project" id="${esc(p.id || "")}">
       <div class="project-head"><span class="idx">${pad(i + 1)} / ${pad(PROJECTS.length)}</span>
         <h2 class="project-name">${esc(p.name)}</h2>${p.badge ? UE : ""}</div>
       <div class="videos n${list.length}">${cells}</div>
@@ -190,3 +228,50 @@ function slideshows() {
 render();
 slideshows();
 reveal();
+
+function tabrail() {
+  const root = document.getElementById("tabrail");
+  if (!root) return;
+  const N = TABS.length;
+  const card = (t, k, dup) => `<a class="tab" href="#${esc(t.target)}"${dup ? ' tabindex="-1" aria-hidden="true"' : ""}>
+    <span class="tab-img"><img src="${esc(t.img)}" alt="" ${k || dup ? 'loading="lazy"' : ""} draggable="false"></span>
+    <span class="tab-label"><i>${pad(k + 1)}</i>${esc(t.title)}</span></a>`;
+  root.innerHTML = `<div class="tabs-viewport" tabindex="-1" aria-label="Featured projects"><div class="tabs-track">${
+    [0, 1, 2].map(c => TABS.map((t, k) => card(t, k, c !== 1)).join("")).join("")}</div></div>
+    <div class="tab-ctrl"><span class="tab-bar"><b></b></span><span class="tab-count"></span>
+      <button type="button" class="tab-btn" data-d="-1" aria-label="Previous">&#8249;</button>
+      <button type="button" class="tab-btn" data-d="1" aria-label="Next">&#8250;</button></div>`;
+  const vp = root.querySelector(".tabs-viewport"), cards = [...vp.querySelectorAll(".tab")];
+  const bar = root.querySelector(".tab-bar b"), count = root.querySelector(".tab-count");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let step, setW, pad0, pos = 0, paused = false, resume, frame = 0;
+  const measure = () => {
+    step = cards[1].offsetLeft - cards[0].offsetLeft; setW = step * N;
+    pad0 = document.querySelector(".hero-copy h1").getBoundingClientRect().left;
+  };
+  const wrap = () => { if (vp.scrollLeft < setW * 0.5) vp.scrollLeft += setW; else if (vp.scrollLeft >= setW * 1.5) vp.scrollLeft -= setW; pos = vp.scrollLeft; };
+  const mark = () => {
+    const i = ((Math.round((vp.scrollLeft + pad0 - setW) / step) % N) + N) % N;
+    cards.forEach((c, k) => c.classList.toggle("on", k % N === i));
+    count.textContent = `${pad(i + 1)} / ${pad(N)}`; bar.style.width = `${((i + 1) / N) * 100}%`;
+  };
+  const hold = ms => { paused = true; clearTimeout(resume); resume = setTimeout(() => { wrap(); paused = false; }, ms); };
+  const tick = () => {
+    if (!paused && !reduce) { pos += 0.45; vp.scrollLeft = pos; if (pos >= setW * 1.5) wrap(); }
+    if (++frame % 8 === 0) mark();
+    requestAnimationFrame(tick);
+  };
+  const init = () => { measure(); vp.scrollLeft = pos = setW - pad0; mark(); };
+  init();
+  addEventListener("resize", init);
+  vp.addEventListener("pointerenter", () => { paused = true; clearTimeout(resume); });
+  vp.addEventListener("pointerleave", () => hold(400));
+  vp.addEventListener("touchstart", () => hold(2500), { passive: true });
+  vp.addEventListener("focusin", () => { paused = true; clearTimeout(resume); });
+  vp.addEventListener("focusout", () => hold(400));
+  root.querySelectorAll(".tab-btn").forEach(b => b.addEventListener("click", () => {
+    hold(1200); vp.scrollBy({ left: step * Number(b.dataset.d), behavior: "smooth" });
+  }));
+  requestAnimationFrame(tick);
+}
+tabrail();
